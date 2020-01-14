@@ -5,9 +5,12 @@ import {
 
 import { LocalStorageService } from '../services/storage';
 
-const localStorageLastViewedCities = LocalStorageService.getItem('lastViewedCities');
+import IDBService from '../services/indexedDB';
 
-export default (state = localStorageLastViewedCities, action) => {
+
+// const localStorageLastViewedCities = LocalStorageService.getItem('lastViewedCities');
+
+export default (state = [], action) => {
     const { type, payload } = action;
 
     switch (type) {

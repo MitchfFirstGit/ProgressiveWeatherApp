@@ -15,6 +15,7 @@ import {
 } from './constants';
 
 import { LocalStorageService } from '../services/storage';
+import IDBService from '../services/indexedDB';
 
 const apiKey = 'de1e94c85ef8c5b5b4456417ebd24daf';
 
@@ -94,8 +95,42 @@ export const removeFromFavoriteCitiesList = cityToRemove => dispatch => {
     });
 };
 
-const addToLastViewedCities = (city, dispatch) => {
-    const lastViewedCities = addCityToLocalStorage(city, 'lastViewedCities')
+// const addToLastViewedCities = (city, dispatch) => {
+//     const lastViewedCities = addCityToLocalStorage(city, 'lastViewedCities')
+
+//     dispatch({
+//         type: ADD_TO_LAST_VIEWED_CITIES,
+//         payload: {
+//             lastViewedCities
+//         }
+//     });
+// };
+
+// export const removeFromLastViewedCities = cityToRemove => dispatch => {
+//     const lastViewedCities = removeCityFromLocalStorage(cityToRemove, 'lastViewedCities');
+
+//     dispatch({
+//         type: REMOVE_FROM_LAST_VIEWED_CITIES,
+//         payload: {
+//             lastViewedCities
+//         }
+//     });
+// };
+
+export const saveToLastViewedCities = async (city, data, dispatch) => {
+    data.addedToDB = new Date().getTime();
+    IDBService.set('lastViewedCities', city, data);
+    const keys = await IDBService.getKeys('lastViewedCities');
+
+    if (keys.length > 5) {
+        const values = await IDBService.getValues('lastViewedCities');
+        // ascending
+        values.sort((a, b) => a.addedToDB - b.addedToDB);
+        const { name, country } = values[0].city;
+        IDBService.delete('lastViewedCities', `${name}, ${country}`);
+    }
+
+    const lastViewedCities = await IDBService.getKeys('lastViewedCities');
 
     dispatch({
         type: ADD_TO_LAST_VIEWED_CITIES,
@@ -105,8 +140,10 @@ const addToLastViewedCities = (city, dispatch) => {
     });
 };
 
-export const removeFromLastViewedCities = cityToRemove => dispatch => {
-    const lastViewedCities = removeCityFromLocalStorage(cityToRemove, 'lastViewedCities');
+
+export const removeFromLastViewedCities = (city) => async (dispatch) => {
+    IDBService.delete('lastViewedCities', city);
+    const lastViewedCities = await IDBService.getKeys('lastViewedCities');
 
     dispatch({
         type: REMOVE_FROM_LAST_VIEWED_CITIES,
@@ -114,7 +151,7 @@ export const removeFromLastViewedCities = cityToRemove => dispatch => {
             lastViewedCities
         }
     });
-};
+}
 
 export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
     dispatch({ type: CLEAR_WEATHER_FORECAST });
@@ -131,7 +168,10 @@ export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
         const data = await res.json();
         const { name, country } = data.city;
 
-        addToLastViewedCities(`${name}, ${country}`, dispatch);
+
+        // addToLastViewedCities(`${name}, ${country}`, dispatch);
+
+        saveToLastViewedCities(`${name}, ${country}`, data, dispatch);
 
         dispatch({
             type: GET_WEATHER_FORECAST,
