@@ -10,25 +10,38 @@ import WeekDays from './components/WeekDays';
 import Day from './components/Day';
 import Menu from './components/Menu';
 // Redux
-import { getWeatherForecast } from './actions/actions';
+import { getWeatherForecast, initFavoriteCitiesList } from './actions/actions';
+// services
+import IDBService from './services/indexedDB';
 // styles
 import styles from './styles/styles.module.scss'
 import "./styles/weather-icons.css";
 
 const App = ({
   getWeatherForecast,
-  lastViewedCities,
-  favoriteCitiesList,
   weatherItems,
-  darkMode
+  darkMode,
+  initFavoriteCitiesList
 }) => {
   useEffect(() => {
-    if (lastViewedCities.length) {
-      getWeatherForecast(lastViewedCities[lastViewedCities.length - 1]);
-    } else if (favoriteCitiesList.length) {
-      getWeatherForecast(favoriteCitiesList[favoriteCitiesList.length - 1]);
-    }
-  }, []);
+    let flag = true;
+
+    IDBService.getKeys('lastViewedCities').then((lastViewedCities) => {
+      if (lastViewedCities.length) {
+        flag = false;
+
+        getWeatherForecast(lastViewedCities[lastViewedCities.length - 1]);
+      }
+    });
+
+    IDBService.getKeys('favoriteCitiesList').then((favoriteCitiesList) => {
+      if (favoriteCitiesList.length) {
+        initFavoriteCitiesList(favoriteCitiesList);
+
+        if (flag) getWeatherForecast(favoriteCitiesList[favoriteCitiesList.length - 1]);
+      }
+    });
+  }, [getWeatherForecast, initFavoriteCitiesList]);
 
   return (
     <>
@@ -37,7 +50,7 @@ const App = ({
       <div className={styles.container}>
         <Search />
 
-        {lastViewedCities.length || favoriteCitiesList.length || weatherItems
+        {weatherItems
           ? <>
             <MainInfo />
             <WeekDays />
@@ -53,15 +66,14 @@ const App = ({
 }
 
 
-const mapStateToProps = ({ lastViewedCities, favoriteCitiesList, weatherForecast, darkMode }) => ({
-  lastViewedCities,
-  favoriteCitiesList,
+const mapStateToProps = ({ weatherForecast, darkMode }) => ({
   weatherItems: weatherForecast.mainInfo.list,
   darkMode
 });
 
 const mapDispatchToProps = {
-  getWeatherForecast
+  getWeatherForecast,
+  initFavoriteCitiesList
 };
 
 export default connect(

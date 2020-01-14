@@ -3,13 +3,6 @@ import {
     REMOVE_FROM_LAST_VIEWED_CITIES,
 } from "../actions/constants";
 
-import { LocalStorageService } from '../services/storage';
-
-import IDBService from '../services/indexedDB';
-
-
-// const localStorageLastViewedCities = LocalStorageService.getItem('lastViewedCities');
-
 export default (state = [], action) => {
     const { type, payload } = action;
 

@@ -14,8 +14,8 @@ import {
     addToFavoriteCitiesList,
     removeFromFavoriteCitiesList
 } from '../../actions/actions';
-// storage
-import { LocalStorageService } from '../../services/storage';
+// services
+import IDBService from '../../services/indexedDB';
 // styles
 import styles from './styles.module.scss';
 
@@ -39,7 +39,7 @@ const Search = ({
             getWeatherForecast(city);
             setInputValue('');
         };
-    }, [inputValue]);
+    }, [inputValue, getWeatherForecast]);
 
     const handleChange = useCallback((value) => {
         setInputValue(value);
@@ -49,12 +49,12 @@ const Search = ({
         setMenuVisibility(!menuVisibility);
     }
 
-    const handleFavoriteIconClick = () => {
+    const handleFavoriteIconClick = async () => {
         if (currentCity) {
-            const favoriteCitiesLS = LocalStorageService.getItem('favoriteCitiesList');
-            const cityInLocalStorage = favoriteCitiesLS.includes(currentCity);
+            const favoriteCitiesIDB = await IDBService.getKeys('favoriteCitiesList');
+            const cityInIDB = favoriteCitiesIDB.includes(currentCity);
 
-            if (cityInLocalStorage) {
+            if (cityInIDB) {
                 removeFromFavoriteCitiesList(currentCity);
             } else {
                 addToFavoriteCitiesList(currentCity);

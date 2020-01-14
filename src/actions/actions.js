@@ -1,4 +1,5 @@
 import moment from 'moment';
+import store from '../store';
 
 import {
     CLEAR_WEATHER_FORECAST,
@@ -11,10 +12,10 @@ import {
     REMOVE_FROM_FAVORITE_CITIES_LIST,
     ADD_TO_LAST_VIEWED_CITIES,
     REMOVE_FROM_LAST_VIEWED_CITIES,
-    SET_DARK_MODE
+    SET_DARK_MODE,
+    INIT_FAVORITE_CITIES_LIST,
 } from './constants';
 
-import { LocalStorageService } from '../services/storage';
 import IDBService from '../services/indexedDB';
 
 const apiKey = 'de1e94c85ef8c5b5b4456417ebd24daf';
@@ -47,75 +48,49 @@ export const setMenuVisibility = (value) => dispatch => {
     });
 };
 
-const addCityToLocalStorage = (city, key) => {
-    const citiesList = LocalStorageService.getItem(key);
-    citiesList.push(city);
-    const uniqueCities = [...new Set(citiesList)];
+export const initFavoriteCitiesList = favoriteCitiesList => async (dispatch) => {
+    dispatch({
+        type: INIT_FAVORITE_CITIES_LIST,
+        payload: {
+            favoriteCitiesList
+        }
+    });
+}
 
-    if (uniqueCities.length <= 5) {
-        LocalStorageService.setItem(key, uniqueCities);
-    } else {
-        uniqueCities.shift();
-        LocalStorageService.setItem(key, uniqueCities);
+export const addToFavoriteCitiesList = city => async (dispatch) => {
+    const currentWeatherInfo = store.getState().weatherForecast.mainInfo;
+    IDBService.set('favoriteCitiesList', city, currentWeatherInfo);
+    const keys = await IDBService.getKeys('favoriteCitiesList');
+
+    if (keys.length > 5) {
+        const values = await IDBService.getValues('favoriteCitiesList');
+        // ascending
+        values.sort((a, b) => a.addedToDB - b.addedToDB);
+        const { name, country } = values[0].city;
+        IDBService.delete('favoriteCitiesList', `${name}, ${country}`);
     }
 
-    LocalStorageService.setItem(key, uniqueCities);
-
-    return uniqueCities;
-}
-
-const removeCityFromLocalStorage = (cityToRemove, key) => {
-    const citiesList = LocalStorageService.getItem(key);
-    const filteredCitiesList = citiesList.filter(city => city !== cityToRemove);
-
-    LocalStorageService.setItem(key, filteredCitiesList);
-
-    return filteredCitiesList;
-}
-
-export const addToFavoriteCitiesList = city => dispatch => {
-    const citiesList = addCityToLocalStorage(city, 'favoriteCitiesList');
+    const favoriteCitiesList = await IDBService.getKeys('favoriteCitiesList');
 
     dispatch({
         type: ADD_TO_FAVORITE_CITIES_LIST,
         payload: {
-            citiesList
+            favoriteCitiesList
         }
     });
-};
+}
 
-export const removeFromFavoriteCitiesList = cityToRemove => dispatch => {
-    const citiesList = removeCityFromLocalStorage(cityToRemove, 'favoriteCitiesList');
+export const removeFromFavoriteCitiesList = cityToRemove => async (dispatch) => {
+    IDBService.delete('favoriteCitiesList', cityToRemove);
+    const favoriteCitiesList = await IDBService.getKeys('favoriteCitiesList');
 
     dispatch({
         type: REMOVE_FROM_FAVORITE_CITIES_LIST,
         payload: {
-            citiesList
+            favoriteCitiesList
         }
     });
-};
-
-// const addToLastViewedCities = (city, dispatch) => {
-//     const lastViewedCities = addCityToLocalStorage(city, 'lastViewedCities')
-
-//     dispatch({
-//         type: ADD_TO_LAST_VIEWED_CITIES,
-//         payload: {
-//             lastViewedCities
-//         }
-//     });
-// };
-
-// export const removeFromLastViewedCities = cityToRemove => dispatch => {
-//     const lastViewedCities = removeCityFromLocalStorage(cityToRemove, 'lastViewedCities');
-
-//     dispatch({
-//         type: REMOVE_FROM_LAST_VIEWED_CITIES,
-//         payload: {
-//             lastViewedCities
-//         }
-//     });
-// };
+}
 
 export const saveToLastViewedCities = async (city, data, dispatch) => {
     data.addedToDB = new Date().getTime();
@@ -167,9 +142,6 @@ export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
 
         const data = await res.json();
         const { name, country } = data.city;
-
-
-        // addToLastViewedCities(`${name}, ${country}`, dispatch);
 
         saveToLastViewedCities(`${name}, ${country}`, data, dispatch);
 

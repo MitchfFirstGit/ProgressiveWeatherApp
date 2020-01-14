@@ -1,20 +1,21 @@
 import {
     ADD_TO_FAVORITE_CITIES_LIST,
     REMOVE_FROM_FAVORITE_CITIES_LIST,
+    INIT_FAVORITE_CITIES_LIST
 } from "../actions/constants";
-import { LocalStorageService } from '../services/storage';
 
-const localStorageFavoriteCities = LocalStorageService.getItem('favoriteCitiesList');
-
-export default (state = localStorageFavoriteCities, action) => {
+export default (state = [], action) => {
     const { type, payload } = action;
 
     switch (type) {
         case ADD_TO_FAVORITE_CITIES_LIST:
-            return payload.citiesList
-            
+            return payload.favoriteCitiesList
+
         case REMOVE_FROM_FAVORITE_CITIES_LIST:
-            return payload.citiesList;
+            return payload.favoriteCitiesList;
+
+        case INIT_FAVORITE_CITIES_LIST:
+            return payload.favoriteCitiesList;
 
         default:
             return state

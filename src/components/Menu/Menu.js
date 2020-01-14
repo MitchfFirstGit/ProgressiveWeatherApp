@@ -56,11 +56,11 @@ const Menu = ({
 
     const handleRemoveFavoriteCity = useCallback(({ currentTarget }) => {
         removeFromFavoriteCitiesList(currentTarget.id);
-    }, []);
+    }, [removeFromFavoriteCitiesList]);
 
     const handleRemoveLastViewedCity = useCallback(({ currentTarget }) => {
         removeFromLastViewedCities(currentTarget.id);
-    }, []);
+    }, [removeFromLastViewedCities]);
 
     const handleCityClick = ({ currentTarget, target }) => {
         if (currentTarget === target) {
