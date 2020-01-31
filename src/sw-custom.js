@@ -7,9 +7,22 @@ if ("function" === typeof importScripts) {
         workbox.precaching.precacheAndRoute([]);
 
         workbox.routing.registerRoute(
-            /\.(?:js|css|png|gif|jpg|jpeg|svg)$/,
+            /\.(?:woff2|woff|ttf)$/,
+            workbox.strategies.CacheFirst({
+              cacheName: "icons",
+              plugins: [
+                new workbox.expiration.Plugin({
+                  maxEntries: 60,
+                  maxAgeSeconds: 20 * 24 * 60 * 60 // 20 Days
+                })
+              ]
+            })
+          );
+
+        workbox.routing.registerRoute(
+            /\.(?:|js|css|png|gif|jpg|jpeg|svg)$/,
             workbox.strategies.staleWhileRevalidate({
-                cacheName: "static-resources",
+                cacheName: "cashe-resources",
                 plugins: [
                     new workbox.expiration.Plugin({
                         maxEntries: 80,
