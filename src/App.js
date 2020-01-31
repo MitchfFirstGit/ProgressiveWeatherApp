@@ -10,7 +10,7 @@ import WeekDays from './components/WeekDays';
 import Day from './components/Day';
 import Menu from './components/Menu';
 // Redux
-import { getWeatherForecast, initFavoriteCitiesList } from './actions/actions';
+import { getWeatherForecast, initFavoriteCitiesList, initLastViewedCities } from './actions/actions';
 // services
 import IDBService from './services/indexedDB';
 // styles
@@ -21,13 +21,15 @@ const App = ({
   getWeatherForecast,
   weatherItems,
   darkMode,
-  initFavoriteCitiesList
+  initFavoriteCitiesList,
+  initLastViewedCities,
 }) => {
   useEffect(() => {
     let flag = true;
 
     IDBService.getKeys('lastViewedCities').then((lastViewedCities) => {
       if (lastViewedCities.length) {
+        initLastViewedCities(lastViewedCities);
         flag = false;
 
         getWeatherForecast(lastViewedCities[lastViewedCities.length - 1]);
@@ -73,7 +75,8 @@ const mapStateToProps = ({ weatherForecast, darkMode }) => ({
 
 const mapDispatchToProps = {
   getWeatherForecast,
-  initFavoriteCitiesList
+  initFavoriteCitiesList,
+  initLastViewedCities,
 };
 
 export default connect(
