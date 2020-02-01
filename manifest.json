@@ -36,8 +36,8 @@
   "start_url": ".",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#5199ff",
-  "theme_color": "#5199ff",
+  "background_color": "#A0F6D2",
+  "theme_color": "#55c5e0",
   "description": "A simple Weather app which implement a lot of PWA love.",
   "dir": "ltr",
   "lang": "en-US"
