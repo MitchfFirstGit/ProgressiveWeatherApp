@@ -1,5 +1,5 @@
 // modules
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import cx from 'classnames';
 import AnimateHeight from 'react-animate-height';
 import { connect } from 'react-redux';
@@ -31,13 +31,33 @@ const Menu = ({
 }) => {
     const [showFavoriteCities, setShowFavoriteCities] = useState(0);
     const [showRecentlyViewedCities, setRecentlyViewedCities] = useState(0);
+    const [installEvent, setInstallEvent] = useState(null);
     const ref = useRef();
+
+    useEffect(() => {
+        window.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault();
+
+            setInstallEvent(event);
+        });
+    }, []);
 
     useOutsideClick(ref, () => {
         setMenuVisibility(false);
         if (showFavoriteCities === 'auto') setShowFavoriteCities(0);
         if (showRecentlyViewedCities === 'auto') setRecentlyViewedCities(0);
     });
+
+    const handleInstallAppClick = () => {
+        installEvent.prompt();
+
+        installEvent.userChoice
+            .then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    setInstallEvent(null);
+                }
+            });
+    };
 
     const handleMenuClose = () => {
         if (showFavoriteCities === 'auto') setShowFavoriteCities(0);
@@ -171,9 +191,9 @@ const Menu = ({
                         {darkMode ? 'Disable dark mode' : 'Enable dark mode'}
                     </li>
 
-                    {/* <li>
+                    {installEvent && <li onClick={handleInstallAppClick}>
                         Install app
-                    </li> */}
+                    </li>}
                 </ul>
             </div>
         </>

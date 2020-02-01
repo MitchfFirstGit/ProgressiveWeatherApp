@@ -4,7 +4,7 @@ const buildSW = () => {
         swSrc: "src/sw-custom.js",
         swDest: "build/sw.js",
         globDirectory: "build",
-        globPatterns: ["**/*.{js,css,html,png,svg}"],
+        globPatterns: ["**/*.{js,css,html,png,svg,json,woff2,woff,ttf}"],
     })
         .then(({ count, size, warnings }) => {
             warnings.forEach(console.warn);
