@@ -30,25 +30,24 @@ const App = memo(({
   const findCityInIndexedDB = useCallback(async () => {
     let isInIndexedDB = false;
     const lastViewedCities = await IDBService.getKeys('lastViewedCities');
+    const favoriteCitiesList = await IDBService.getKeys('favoriteCitiesList');
+    const lastViewedCitiesLength = lastViewedCities.length;
+    const favoriteCitiesLength = favoriteCitiesList.length;
 
-    if (lastViewedCities.length) {
+    if (lastViewedCitiesLength) {
       isInIndexedDB = true;
 
       initLastViewedCities(lastViewedCities);
-      getWeatherForecast(lastViewedCities[lastViewedCities.length - 1]);
+      getWeatherForecast(lastViewedCities[lastViewedCitiesLength - 1]);
     }
 
-    if (!isInIndexedDB) {
-      const favoriteCitiesList = await IDBService.getKeys('favoriteCitiesList');
+    if (favoriteCitiesLength) {
+      initFavoriteCitiesList(favoriteCitiesList);
 
-      if (favoriteCitiesList.length) {
-        initFavoriteCitiesList(favoriteCitiesList);
-
-        getWeatherForecast(favoriteCitiesList[favoriteCitiesList.length - 1]);
-      } else {
-        removeLoading(false);
-      }
+      if (!isInIndexedDB) getWeatherForecast(favoriteCitiesList[favoriteCitiesLength - 1]);
     }
+
+    if (!lastViewedCitiesLength && !favoriteCitiesLength) removeLoading(false);
   }, [getWeatherForecast, initFavoriteCitiesList, initLastViewedCities, removeLoading]);
 
   useEffect(() => {
