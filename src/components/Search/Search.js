@@ -1,5 +1,5 @@
 // modules
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, memo } from 'react';
 import { connect } from 'react-redux';
 import cx from "classnames";
 // selectors
@@ -19,7 +19,7 @@ import IDBService from '../../services/indexedDB';
 // styles
 import styles from './styles.module.scss';
 
-const Search = ({
+const Search = memo(({
     getWeatherForecast,
     setMenuVisibility,
     menuVisibility,
@@ -86,7 +86,7 @@ const Search = ({
             </button>
         </div>
     );
-}
+});
 
 const mapStateToProps = (state) => ({
     currentCity: cityFullNameSelector(state),

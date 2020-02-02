@@ -1,9 +1,9 @@
 // modules
-import React from 'react';
+import React, { memo } from 'react';
 // styles
 import styles from './styles.module.scss';
 
-const FirstInteraction = () => {
+const FirstInteraction = memo(() => {
     return (
         <div className={styles.container}>
             <h1 className={styles.header}>Welcome to Progressive Weather App</h1>
@@ -26,6 +26,6 @@ const FirstInteraction = () => {
             </p>
         </div>
     );
-}
+});
 
 export default FirstInteraction;

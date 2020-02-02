@@ -2,7 +2,7 @@ import moment from 'moment';
 import store from '../store';
 
 import {
-    CLEAR_WEATHER_FORECAST,
+    SET_WEATHER_FORECAST_LOADING,
     GET_WEATHER_FORECAST,
     ERROR_WEATHER_FORECAST,
     SET_SELECTED_DAY,
@@ -178,8 +178,17 @@ const setErrorMessage = (dispatch, message) => {
     });
 }
 
+export const removeLoading = (loading) => {
+    return {
+        type: SET_WEATHER_FORECAST_LOADING,
+        payload: {
+            loading: loading
+        }
+    };
+}
+
 export const getWeatherForecast = (city = 'kyiv') => async dispatch => {
-    dispatch({ type: CLEAR_WEATHER_FORECAST });
+    dispatch(removeLoading(true));
 
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&APPID=${apiKey}`
 

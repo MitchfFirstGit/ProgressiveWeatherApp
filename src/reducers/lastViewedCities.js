@@ -8,14 +8,10 @@ export default (state = [], action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case ADD_TO_LAST_VIEWED_CITIES:
-            return payload.lastViewedCities
-
-        case REMOVE_FROM_LAST_VIEWED_CITIES:
-            return payload.lastViewedCities;
-
         case INIT_LAST_VIEWED_CITIES:
-            return payload.lastViewedCities;
+        case ADD_TO_LAST_VIEWED_CITIES:
+        case REMOVE_FROM_LAST_VIEWED_CITIES:
+            return payload.lastViewedCities
 
         default:
             return state

@@ -1,0 +1,44 @@
+.container {
+  margin: auto;
+}
+
+.firstTriangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 50px 50px 0 0;
+  border-color: #55c5e0 transparent transparent transparent;
+  margin: 0 auto;
+  animation: firstTriangle 1s ease-in-out infinite normal;
+}
+
+.secondTriangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 50px 50px;
+  border-color: transparent transparent #79ddd5 transparent;
+  margin: -50px auto 0;
+  animation: secondTriangle 1s ease-in-out infinite alternate;
+}
+
+@keyframes firstTriangle {
+  0% {
+    transform: rotate(-360deg);
+  }
+
+  100% {}
+}
+
+@keyframes secondTriangle {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {}
+}
+
+.text {
+  letter-spacing: 7px;
+  font-size: 1.3rem;
+}

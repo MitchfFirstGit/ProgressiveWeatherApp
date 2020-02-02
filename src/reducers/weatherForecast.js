@@ -1,6 +1,6 @@
 import {
     GET_WEATHER_FORECAST,
-    CLEAR_WEATHER_FORECAST,
+    SET_WEATHER_FORECAST_LOADING,
     ERROR_WEATHER_FORECAST,
     SET_SELECTED_DAY,
     SET_SELECTED_HOUR,
@@ -8,7 +8,7 @@ import {
 
 export const initialState = {
     mainInfo: {},
-    loading: false,
+    loading: true,
     error: {},
     selectedDay: '',
     selectedHour: ''
@@ -27,10 +27,10 @@ export default (state = initialState, action) => {
                 loading: false,
             };
 
-        case CLEAR_WEATHER_FORECAST:
+        case SET_WEATHER_FORECAST_LOADING:
             return {
                 ...state,
-                loading: true,
+                loading: payload.loading,
                 error: {}
             }
 
@@ -53,6 +53,7 @@ export default (state = initialState, action) => {
                 ...state,
                 selectedHour: payload.selectedHour
             };
+
         default:
             return state
     }

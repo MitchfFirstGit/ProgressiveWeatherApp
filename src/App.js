@@ -1,5 +1,5 @@
 // modules
-import React, { useEffect } from 'react';
+import React, { useEffect, memo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 // components
@@ -9,41 +9,63 @@ import MainInfo from './components/MainInfo';
 import WeekDays from './components/WeekDays';
 import Day from './components/Day';
 import Menu from './components/Menu';
+import Loader from './components/Loader';
 // Redux
-import { getWeatherForecast, initFavoriteCitiesList, initLastViewedCities } from './actions/actions';
+import { getWeatherForecast, initFavoriteCitiesList, initLastViewedCities, removeLoading } from './actions/actions';
 // services
 import IDBService from './services/indexedDB';
 // styles
 import styles from './styles/styles.module.scss'
 import "./styles/weather-icons.css";
 
-const App = ({
+const App = memo(({
   getWeatherForecast,
   weatherItems,
   darkMode,
   initFavoriteCitiesList,
   initLastViewedCities,
+  loading,
+  removeLoading,
 }) => {
-  useEffect(() => {
-    let flag = true;
+  const findCityInIndexedDB = useCallback(async () => {
+    let isInIndexedDB = false;
+    const lastViewedCities = await IDBService.getKeys('lastViewedCities');
 
-    IDBService.getKeys('lastViewedCities').then((lastViewedCities) => {
-      if (lastViewedCities.length) {
-        initLastViewedCities(lastViewedCities);
-        flag = false;
+    if (lastViewedCities.length) {
+      isInIndexedDB = true;
 
-        getWeatherForecast(lastViewedCities[lastViewedCities.length - 1]);
-      }
-    });
+      initLastViewedCities(lastViewedCities);
+      getWeatherForecast(lastViewedCities[lastViewedCities.length - 1]);
+    }
 
-    IDBService.getKeys('favoriteCitiesList').then((favoriteCitiesList) => {
+    if (!isInIndexedDB) {
+      const favoriteCitiesList = await IDBService.getKeys('favoriteCitiesList');
+
       if (favoriteCitiesList.length) {
         initFavoriteCitiesList(favoriteCitiesList);
 
-        if (flag) getWeatherForecast(favoriteCitiesList[favoriteCitiesList.length - 1]);
+        getWeatherForecast(favoriteCitiesList[favoriteCitiesList.length - 1]);
+      } else {
+        removeLoading(false);
       }
-    });
-  }, [getWeatherForecast, initFavoriteCitiesList]);
+    }
+  }, [getWeatherForecast, initFavoriteCitiesList, initLastViewedCities, removeLoading]);
+
+  useEffect(() => {
+    findCityInIndexedDB();
+  }, [findCityInIndexedDB]);
+
+  const renderContent = () => {
+    if (loading) return <Loader />;
+
+    if (weatherItems) return <>
+      <MainInfo />
+      <WeekDays />
+      <Day />
+    </>;
+
+    return <FirstInteraction />;
+  }
 
   return (
     <>
@@ -52,31 +74,25 @@ const App = ({
       <div className={styles.container}>
         <Search />
 
-        {weatherItems
-          ? <>
-            <MainInfo />
-            <WeekDays />
-            <Day />
-          </>
-          : <FirstInteraction />
-        }
+        {renderContent()}
 
         <Menu />
       </div>
     </>
   );
-}
-
+})
 
 const mapStateToProps = ({ weatherForecast, darkMode }) => ({
   weatherItems: weatherForecast.mainInfo.list,
-  darkMode
+  darkMode,
+  loading: weatherForecast.loading,
 });
 
 const mapDispatchToProps = {
   getWeatherForecast,
   initFavoriteCitiesList,
   initLastViewedCities,
+  removeLoading
 };
 
 export default connect(
