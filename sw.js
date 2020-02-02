@@ -10,7 +10,7 @@ if ("function" === typeof importScripts) {
     workbox.precaching.precacheAndRoute([
   {
     "url": "asset-manifest.json",
-    "revision": "396631d247d688c733ea347282f63e9f"
+    "revision": "680a8f234f94ab0c7f8c2c4be667a0ba"
   },
   {
     "url": "img/Icon-120.png",
@@ -62,19 +62,19 @@ if ("function" === typeof importScripts) {
   },
   {
     "url": "index.html",
-    "revision": "930f3109d980ad337eeec9ed1eccf512"
+    "revision": "ad2a70f6d02859ffb8773eef1daf6d53"
   },
   {
     "url": "manifest.json",
     "revision": "59d485adfbd8d6606a4a475041612360"
   },
   {
-    "url": "precache-manifest.10d1133982bec69acb01ad6f7589191c.js",
-    "revision": "10d1133982bec69acb01ad6f7589191c"
+    "url": "precache-manifest.69dbb8cf1944349b0c296efce8c3b100.js",
+    "revision": "69dbb8cf1944349b0c296efce8c3b100"
   },
   {
     "url": "service-worker.js",
-    "revision": "85c2e0b1170b776e048e2fea62e9edf5"
+    "revision": "e4e5c831198ed056b7d4b9c92a83c9ae"
   },
   {
     "url": "splashscreens/ipad_splash.png",
@@ -117,20 +117,20 @@ if ("function" === typeof importScripts) {
     "revision": "ec20592b0ecdc15848f7c263cf6e2446"
   },
   {
-    "url": "static/css/main.c7903395.chunk.css",
-    "revision": "edf4e592fc6a7ad8228982389187bbe4"
+    "url": "static/css/main.25272a3c.chunk.css",
+    "revision": "4e7f1cffe56429f87b907fc92be6a2fa"
   },
   {
     "url": "static/js/2.19e2c9c1.chunk.js",
     "revision": "ac510a9f6f49b15781c8cc9d912631c6"
   },
   {
-    "url": "static/js/main.9bb89615.chunk.js",
-    "revision": "3bcf3892c0cf69000edd100c57493952"
+    "url": "static/js/main.948cd693.chunk.js",
+    "revision": "b1227d339d0dbbfa6baff3ded9ac8cae"
   },
   {
-    "url": "static/js/runtime-main.78aefbc2.js",
-    "revision": "1aa21beaaeefa6acca6bc9e9825b87fd"
+    "url": "static/js/runtime-main.8aff1fc4.js",
+    "revision": "e72f3acef871d6ef7cc1b340bf35a0f5"
   },
   {
     "url": "static/media/weathericons-regular-webfont.1cd48d78.woff2",
