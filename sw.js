@@ -10,7 +10,7 @@ if ("function" === typeof importScripts) {
     workbox.precaching.precacheAndRoute([
   {
     "url": "asset-manifest.json",
-    "revision": "680a8f234f94ab0c7f8c2c4be667a0ba"
+    "revision": "6c10f9a863a9b46a0349e01ef4432919"
   },
   {
     "url": "img/Icon-120.png",
@@ -62,19 +62,19 @@ if ("function" === typeof importScripts) {
   },
   {
     "url": "index.html",
-    "revision": "ad2a70f6d02859ffb8773eef1daf6d53"
+    "revision": "9de08abc8236350b25a0adb42693e612"
   },
   {
     "url": "manifest.json",
     "revision": "59d485adfbd8d6606a4a475041612360"
   },
   {
-    "url": "precache-manifest.69dbb8cf1944349b0c296efce8c3b100.js",
-    "revision": "69dbb8cf1944349b0c296efce8c3b100"
+    "url": "precache-manifest.351250b367b4341d21f2f00ccb8a0a45.js",
+    "revision": "351250b367b4341d21f2f00ccb8a0a45"
   },
   {
     "url": "service-worker.js",
-    "revision": "e4e5c831198ed056b7d4b9c92a83c9ae"
+    "revision": "a87e1f1551bda37714342366898317f8"
   },
   {
     "url": "splashscreens/ipad_splash.png",
@@ -117,16 +117,16 @@ if ("function" === typeof importScripts) {
     "revision": "ec20592b0ecdc15848f7c263cf6e2446"
   },
   {
-    "url": "static/css/main.25272a3c.chunk.css",
-    "revision": "4e7f1cffe56429f87b907fc92be6a2fa"
+    "url": "static/css/main.3715bb69.chunk.css",
+    "revision": "6fc862ed988273946d6be86f2ccf86c7"
   },
   {
     "url": "static/js/2.19e2c9c1.chunk.js",
     "revision": "ac510a9f6f49b15781c8cc9d912631c6"
   },
   {
-    "url": "static/js/main.948cd693.chunk.js",
-    "revision": "b1227d339d0dbbfa6baff3ded9ac8cae"
+    "url": "static/js/main.268de4d4.chunk.js",
+    "revision": "cb55fe7ea1c1e1b6ec4c1ca63b7ad41b"
   },
   {
     "url": "static/js/runtime-main.8aff1fc4.js",

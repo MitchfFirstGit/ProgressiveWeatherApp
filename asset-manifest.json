@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/ProgressiveWeatherApp/static/css/main.25272a3c.chunk.css",
-    "main.js": "/ProgressiveWeatherApp/static/js/main.948cd693.chunk.js",
-    "main.js.map": "/ProgressiveWeatherApp/static/js/main.948cd693.chunk.js.map",
+    "main.css": "/ProgressiveWeatherApp/static/css/main.3715bb69.chunk.css",
+    "main.js": "/ProgressiveWeatherApp/static/js/main.268de4d4.chunk.js",
+    "main.js.map": "/ProgressiveWeatherApp/static/js/main.268de4d4.chunk.js.map",
     "runtime-main.js": "/ProgressiveWeatherApp/static/js/runtime-main.8aff1fc4.js",
     "runtime-main.js.map": "/ProgressiveWeatherApp/static/js/runtime-main.8aff1fc4.js.map",
     "static/js/2.19e2c9c1.chunk.js": "/ProgressiveWeatherApp/static/js/2.19e2c9c1.chunk.js",
     "static/js/2.19e2c9c1.chunk.js.map": "/ProgressiveWeatherApp/static/js/2.19e2c9c1.chunk.js.map",
     "index.html": "/ProgressiveWeatherApp/index.html",
-    "precache-manifest.69dbb8cf1944349b0c296efce8c3b100.js": "/ProgressiveWeatherApp/precache-manifest.69dbb8cf1944349b0c296efce8c3b100.js",
+    "precache-manifest.351250b367b4341d21f2f00ccb8a0a45.js": "/ProgressiveWeatherApp/precache-manifest.351250b367b4341d21f2f00ccb8a0a45.js",
     "service-worker.js": "/ProgressiveWeatherApp/service-worker.js",
-    "static/css/main.25272a3c.chunk.css.map": "/ProgressiveWeatherApp/static/css/main.25272a3c.chunk.css.map",
+    "static/css/main.3715bb69.chunk.css.map": "/ProgressiveWeatherApp/static/css/main.3715bb69.chunk.css.map",
     "static/media/weather-icons.css": "/ProgressiveWeatherApp/static/media/weathericons-regular-webfont.ecaf8b48.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.8aff1fc4.js",
     "static/js/2.19e2c9c1.chunk.js",
-    "static/css/main.25272a3c.chunk.css",
-    "static/js/main.948cd693.chunk.js"
+    "static/css/main.3715bb69.chunk.css",
+    "static/js/main.268de4d4.chunk.js"
   ]
 }
