@@ -27,6 +27,7 @@ const Search = memo(({
     addToFavoriteCitiesList,
     isLiked,
     removeFromFavoriteCitiesList,
+    dartMode,
 }) => {
     const [inputValue, setInputValue] = useState('');
 
@@ -64,10 +65,15 @@ const Search = memo(({
 
     return (
         <div className={styles.searchContainer}>
-            <button className={cx(styles.button, { [styles.likedCity]: isLiked })} onClick={handleFavoriteIconClick}>
+            <button className={cx(
+                styles.button, {
+                [styles.likedCity]: isLiked,
+                [styles.dartModeLikedBtn]: dartMode && isLiked
+            })}
+                onClick={handleFavoriteIconClick}
+            >
                 <Icon iconName="like" className={styles.icon} />
             </button>
-
             <form onSubmit={handleSubmit} className={styles.form}>
 
                 <AutocompleteInput
@@ -91,7 +97,8 @@ const Search = memo(({
 const mapStateToProps = (state) => ({
     currentCity: cityFullNameSelector(state),
     menuVisibility: state.menuVisibility,
-    isLiked: isLikedSelector(state)
+    isLiked: isLikedSelector(state),
+    dartMode: state.darkMode,
 });
 
 const mapDispatchToProps = {

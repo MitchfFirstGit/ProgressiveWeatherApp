@@ -46,11 +46,21 @@
 }
 
 .likedCity {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.6);
+
+  svg {
+    fill: #79ddd5;
+  }
 }
 
 .icon {
   width: 20px;
   height: 20px;
   fill: white;
+}
+
+.dartModeLikedBtn {
+  svg {
+    fill: #282c35;
+  }
 }
