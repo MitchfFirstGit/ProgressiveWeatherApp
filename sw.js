@@ -10,7 +10,7 @@ if ("function" === typeof importScripts) {
     workbox.precaching.precacheAndRoute([
   {
     "url": "asset-manifest.json",
-    "revision": "a83865fa29fad95a4cbb58ea0e315bae"
+    "revision": "396631d247d688c733ea347282f63e9f"
   },
   {
     "url": "img/Icon-120.png",
@@ -62,19 +62,19 @@ if ("function" === typeof importScripts) {
   },
   {
     "url": "index.html",
-    "revision": "5ff152eb53424e71f70e216109208e82"
+    "revision": "930f3109d980ad337eeec9ed1eccf512"
   },
   {
     "url": "manifest.json",
     "revision": "59d485adfbd8d6606a4a475041612360"
   },
   {
-    "url": "precache-manifest.18e662cad2313744146a57d9461937d2.js",
-    "revision": "18e662cad2313744146a57d9461937d2"
+    "url": "precache-manifest.10d1133982bec69acb01ad6f7589191c.js",
+    "revision": "10d1133982bec69acb01ad6f7589191c"
   },
   {
     "url": "service-worker.js",
-    "revision": "e55c79850c5c70221038ecfe90bdb1cb"
+    "revision": "85c2e0b1170b776e048e2fea62e9edf5"
   },
   {
     "url": "splashscreens/ipad_splash.png",
@@ -117,20 +117,20 @@ if ("function" === typeof importScripts) {
     "revision": "ec20592b0ecdc15848f7c263cf6e2446"
   },
   {
-    "url": "static/css/main.5c46fca8.chunk.css",
-    "revision": "ccc798898ad2968a359c8ae680ad4870"
+    "url": "static/css/main.c7903395.chunk.css",
+    "revision": "edf4e592fc6a7ad8228982389187bbe4"
   },
   {
-    "url": "static/js/2.783f24fe.chunk.js",
-    "revision": "47529bcc551eeca49f6b4341d9b82e09"
+    "url": "static/js/2.19e2c9c1.chunk.js",
+    "revision": "ac510a9f6f49b15781c8cc9d912631c6"
   },
   {
-    "url": "static/js/main.fe7f5f05.chunk.js",
-    "revision": "66e92fc94d82ac136cd8596a3d191276"
+    "url": "static/js/main.9bb89615.chunk.js",
+    "revision": "3bcf3892c0cf69000edd100c57493952"
   },
   {
-    "url": "static/js/runtime-main.8aff1fc4.js",
-    "revision": "e72f3acef871d6ef7cc1b340bf35a0f5"
+    "url": "static/js/runtime-main.78aefbc2.js",
+    "revision": "1aa21beaaeefa6acca6bc9e9825b87fd"
   },
   {
     "url": "static/media/weathericons-regular-webfont.1cd48d78.woff2",
