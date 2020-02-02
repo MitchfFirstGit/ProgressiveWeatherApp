@@ -1,16 +1,22 @@
 // modules
 import React from 'react';
+import cx from 'classnames';
+import { connect } from 'react-redux';
 // styles
 import styles from './styles.module.scss';
 
-const Loader = () => {
+const Loader = ({ darkMode }) => {
     return (
         <div className={styles.container}>
-            <div className={styles.firstTriangle}></div>
-            <div className={styles.secondTriangle}></div>
+            <div className={cx(styles.firstTriangle, { [styles.firstTriangleDarkMode]: darkMode })}></div>
+            <div className={cx(styles.secondTriangle, { [styles.secondTriangleDarkMode]: darkMode })}></div>
             <h4 className={styles.text}>Loading...</h4>
         </div>
     );
-}
+};
 
-export default Loader;
+const mapStateToProps = ({ darkMode }) => ({
+    darkMode,
+});
+
+export default connect(mapStateToProps)(Loader);

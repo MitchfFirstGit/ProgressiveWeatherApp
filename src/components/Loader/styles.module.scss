@@ -12,6 +12,10 @@
   animation: firstTriangle 1s ease-in-out infinite normal;
 }
 
+.firstTriangleDarkMode {
+  border-color: #535353 transparent transparent transparent;
+}
+
 .secondTriangle {
   width: 0;
   height: 0;
@@ -20,6 +24,10 @@
   border-color: transparent transparent #79ddd5 transparent;
   margin: -50px auto 0;
   animation: secondTriangle 1s ease-in-out infinite alternate;
+}
+
+.secondTriangleDarkMode {
+  border-color: transparent transparent #414042 transparent;
 }
 
 @keyframes firstTriangle {
